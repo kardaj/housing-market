@@ -1,0 +1,223 @@
+swagger: "2.0"
+info:
+    description: "Fraud API"
+    version: "0.1.0"
+    title: "Fraud API"
+    termsOfService: "http://swagger.io/terms/"
+    contact:
+        email: "paul@qucit.com"
+    license:
+        name: "Apache 2.0"
+        url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "api.qucit.com"
+securityDefinitions:
+    basicAuth:
+        type: "basic"
+
+security:
+    - basicAuth: []
+consumes:
+    - "application/json"
+produces:
+    - "application/json"
+
+schemes:
+- "http"
+paths:
+  /auth: # GET
+    get:
+      responses:
+        200:
+          $ref: "#/definitions/UserGet"
+        401:
+          $ref: "#/responses/AuthenticationError"
+  /users/{user_id}:
+    put:
+      parameters:
+        -
+          name: user_id
+          in: path
+          required: true
+          type: integer
+        -
+          name: body
+          in: "body"
+          schema:
+            $ref: "#/definitions/UserPutBody"
+      responses:
+        200:
+          description: OK
+          schema:
+              $ref: "#/definitions/UserGet"
+        401:
+          $ref: "#/responses/AuthenticationError"
+        403:
+          $ref: "#/responses/AuthorizationError"
+        422:
+          $ref: "#/responses/ArgumentsValidationError"
+
+  /amenity-types:
+    get:
+      responses:
+        200:
+          $ref: "#/definitions/AmenityTypes"
+  /listings:
+    get:
+      parameters:
+        -
+          name: listing_type
+          in: query
+          type: "array"
+          items:
+            type: "string"
+            enum:
+              - "house"
+              - "apartment"
+              - "land"
+              - "parking"
+
+      responses:
+        200:
+          $ref: "#/definitions/ListingsGet"
+  /listings:search:
+    get:
+      parameters:
+        -
+          name: keywords
+          in: query
+          type: "string"
+        -
+          name: min_surface_area
+          in: query
+          type: "integer"
+        -
+          name: max_surface_area
+          in: query
+          type: "integer"
+        -
+          name: min_room_count
+          in: query
+          type: "integer"
+        -
+          name: max_room_count
+          in: query
+          type: "integer"
+        -
+          name: limit
+          in: query
+          type: "integer"
+        -
+          name: listing_type
+          in: query
+          type: "array"
+          items:
+            type: "string"
+            enum:
+              - "house"
+              - "apartment"
+              - "land"
+              - "parking"
+        -
+          name: amenities
+          in: query
+          type: "array"
+          items:
+            type: "string"
+      responses:
+        200:
+          $ref: "#/definitions/ListingSearchGet"
+
+
+
+responses:
+  ArgumentsValidationError:
+    description: "invalid arguments"
+    schema:
+      $ref: "#/definitions/InvalidArguments"
+  Conflict:
+    description: "passed arguments conflict with the current state of the system\n(name / id exists already or an object you want to delete is in use, etc)"
+    schema:
+      $ref: "#/definitions/DefaultError"
+  AuthenticationError:
+    description: "wrong credentials"
+    schema:
+      $ref: "#/definitions/DefaultError"
+  AuthorizationError:
+    description: "you don't have the correct permissions to perform the operation"
+    schema:
+      $ref: "#/definitions/DefaultError"
+  NotModified:
+    description: "the requested content has not been modified since the timestamp passed in the `If-Modified-Since` header"
+definitions:
+  InvalidArguments:
+    type: "object"
+
+  DefaultError:
+    type: "object"
+    properties:
+      message:
+        type: "string"
+  AmenityTypes:
+    type: "array"
+    items:
+      type: "string"
+  Listing:
+    type: "object"
+    properties:
+      listing_id:
+        type: "integer"
+      name:
+        type: "string"
+      url:
+        type: "string"
+        description: "A link to the listing on the source website"
+      surface_area:
+        type: "number"
+        description: "in square meters"
+      attractiveness:
+        type: "number"
+        description: "A rate between 0 and 100 that scores the listing based on its context"
+      room_cout:
+        type: "integer"
+      listing_type:
+        type: "string"
+      latitude:
+        type: "number"
+      longitude:
+        type: "number"
+
+  UserGet:
+    type: "object"
+    properties:
+      username:
+        type: "string"
+      email:
+        type: "string"
+      notify:
+        type: "boolean"
+  ListingsGet:
+    type: "object"
+    properties:
+      bbox:
+        type: "array"
+        maxItems: 4
+        minItems: 4
+        items:
+          type: "number"
+      listings:
+        type: "array"
+        items:
+          $ref: "#/definitions/Listing"
+  ListingSearchGet:
+    type: "array"
+    items:
+      type: "object"
+      properties:
+        listing_id:
+          type: "integer"
+        affinity:
+          type: "number"
+
+  UserPutBody:
+    allOf:
+      - $ref: "#/definitions/UserGet"
