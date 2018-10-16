@@ -1,7 +1,7 @@
 from webargs import fields
 from webargs.flaskparser import use_kwargs
 from app import parse
-from model import LISTING_TYPES
+from app.model import LISTING_TYPES
 from marshmallow import validate
 from app.resources import DefaultSchema, DefaultResource
 from app.model import db, Listing, rollback_on_exception

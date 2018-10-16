@@ -21,7 +21,7 @@ def rollback_on_exception(f):
 
 
 class GeometricType(object):
-    geometry = db.Column(db.JSON, nullable=False)
+    geometry = db.Column(db.BLOB, nullable=False)
 
     def get_center_coordinates(self):
         from shapely.geometry import shape
@@ -31,10 +31,10 @@ class GeometricType(object):
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String)
-    last_name = db.Column(db.String)
+    username = db.Column(db.String)
     email = db.Column(db.String, unique=True)
     password_hash = db.Column(db.String)
+    notify = db.Column(db.Boolean, default=False, nullable=False)
 
 
 class Listing(db.Model, GeometricType):

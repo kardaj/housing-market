@@ -1,4 +1,0 @@
-flask_sqlalchemy
-flask_cors
-flask_restful
-webargs<4
