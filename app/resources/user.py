@@ -24,7 +24,7 @@ def get_user(user):
     }
 
 
-def create_user(username, email, password):
+def create_user(username, password, email=None):
     password_hash = generate_password_hash(password)
     user = User(username=username, email=email, password_hash=password_hash)
     db.session.add(user)

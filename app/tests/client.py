@@ -33,6 +33,20 @@ class Client(object):
         data = strip_none(data)
         return self.request('/users/{}'.format(user_id), method='PUT', data=data)
 
+    def listings(self):
+        return self.request('/listings')
+
+    def search_listings(self,
+                        keywords=None, min_rent=None, max_rent=None, min_room_count=None, max_room_count=None,
+                        min_surface_area=None, max_surface_area=None, amenities=None, listing_type=None, limit=None):
+        data = locals()
+        data.pop('self')
+        data = strip_none(data)
+        return self.request('/listings:search', params=data)
+
+    def amenity_types(self):
+        return self.request('/amenity-types')
+
     def auth(self):
         return self.request('/auth')
 
@@ -47,7 +61,7 @@ class Client(object):
             content_type = 'application/json'
         if params is not None:
             params = {k: v for k, v in params.items() if v is not None}
-            url = url + '?' + urlencode(params)
+            url = url + '?' + urlencode(params, True)
         if headers is None:
             headers = {}
         headers['Authorization'] = 'Basic ' + base64.b64encode(self.username + ':' + self.password)

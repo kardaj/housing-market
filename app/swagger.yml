@@ -63,22 +63,15 @@ paths:
           $ref: "#/definitions/AmenityTypes"
   /listings:
     get:
-      parameters:
-        -
-          name: listing_type
-          in: query
-          type: "array"
-          items:
-            type: "string"
-            enum:
-              - "house"
-              - "apartment"
-              - "land"
-              - "parking"
-
       responses:
         200:
           $ref: "#/definitions/ListingsGet"
+        401:
+          $ref: "#/responses/AuthenticationError"
+        403:
+          $ref: "#/responses/AuthorizationError"
+        422:
+          $ref: "#/responses/ArgumentsValidationError"
   /listings:search:
     get:
       parameters:
@@ -92,6 +85,14 @@ paths:
           type: "integer"
         -
           name: max_surface_area
+          in: query
+          type: "integer"
+        -
+          name: min_rent
+          in: query
+          type: "integer"
+        -
+          name: max_rent
           in: query
           type: "integer"
         -
@@ -109,14 +110,12 @@ paths:
         -
           name: listing_type
           in: query
-          type: "array"
-          items:
-            type: "string"
-            enum:
-              - "house"
-              - "apartment"
-              - "land"
-              - "parking"
+          type: "string"
+          enum:
+            - "house"
+            - "apartment"
+            - "land"
+            - "parking"
         -
           name: amenities
           in: query
@@ -126,6 +125,12 @@ paths:
       responses:
         200:
           $ref: "#/definitions/ListingSearchGet"
+        401:
+          $ref: "#/responses/AuthenticationError"
+        403:
+          $ref: "#/responses/AuthorizationError"
+        422:
+          $ref: "#/responses/ArgumentsValidationError"
 
 
 

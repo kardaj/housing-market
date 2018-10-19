@@ -3,10 +3,13 @@ from app.api import app as raw_app
 from sqlalchemy_utils import database_exists, drop_database, create_database
 from app.tests.client import Client
 from app.model import db
+from app.resources.user import create_user
 
 
 class BaseTestCase(unittest.TestCase):
     raw_app = raw_app
+    username = 'admin'
+    password = 'default'
 
     @classmethod
     def setUpClass(cls):
@@ -33,6 +36,7 @@ class BaseTestCase(unittest.TestCase):
     def setUp(self):
         db.drop_all()
         db.create_all()
+        create_user(self.username, self.password)
 
     def tearDown(self):
         db.session.rollback()
