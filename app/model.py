@@ -42,6 +42,7 @@ class Listing(db.Model, GeometricType):
     name = db.Column(db.String)
     url = db.Column(db.String, unique=True, nullable=False)
     surface_area = db.Column(db.Float)
+    rent = db.Column(db.Integer)
     room_count = db.Column(db.Integer)
     listing_type = db.Column(db.Enum(*LISTING_TYPES, name='listing_type'), nullable=False)
     is_furnished = db.Column(db.Boolean)

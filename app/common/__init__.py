@@ -13,4 +13,4 @@ class Context(object):
         self.context.pop()
 
 
-app_context = Context()
+flask_app_context = Context()

@@ -60,3 +60,11 @@ class ListingSearchResource(DefaultResource):
             keywords, min_rent, max_rent, min_surface_area, max_surface_area, min_room_count, max_room_count,
             is_furnished, listing_type, amenities, **kwargs):
         return []
+
+
+def bulk_insert_listings(listings):
+    for listing_dict in listings:
+        listing_dict['is_furnished'] = bool(listing_dict['is_furnished'])
+        listing = Listing(**listing_dict)
+        db.session.add(listing)
+    db.session.commit()
