@@ -21,12 +21,13 @@ def rollback_on_exception(f):
 
 
 class GeometricType(object):
-    geometry = db.Column(db.BLOB, nullable=False)
+    geometry = db.Column(db.String, nullable=False)
 
     def get_center_coordinates(self):
-        from shapely.geometry import shape
-        my_poly = shape(self.geometry)
-        return my_poly.interpolate(0.5, normalized=True).coords[0]
+        import shapely.wkt
+        from shapely.geometry import shape, mapping
+        my_poly = shapely.wkt.loads(self.geometry)
+        return my_poly.centroid.coords[0]
 
 
 class User(db.Model):

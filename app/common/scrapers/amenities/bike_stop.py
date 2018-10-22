@@ -11,7 +11,8 @@ inProj = Proj(init='epsg:2154', preserve_units=True)
 outProj = Proj(init='epsg:4326')
 amenity_type = 'bike_stop'
 
-with flask_app_context:
+
+def fill_bike_stops():
     there_s_change = False
     r = requests.get('https://data.bordeaux-metropole.fr/files.php?gid=105&format=2')
     with ZipFile(StringIO.StringIO(r.content), 'r') as zipshape:

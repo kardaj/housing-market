@@ -43,7 +43,7 @@ class ListingResource(DefaultResource):
                 'name': listing.name,
                 'surface_area': listing.surface_area,
                 'attractiveness': listing.attractiveness,
-                'roum_count': listing.room_cout,
+                'roum_count': listing.room_count,
                 'listing_type': listing.listing_type,
                 'latitude': lat,
                 'longitude': lng

@@ -1,0 +1,12 @@
+sqlalchemy
+sqlalchemy_utils
+flask
+flask_restful
+flask_cors
+flask_sqlalchemy
+flask_httpauth
+webargs<4.0.0
+shapely
+requests
+pyshp
+pyproj

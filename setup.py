@@ -18,6 +18,9 @@ setup(
         'flask_cors',
         'flask_sqlalchemy',
         'flask_httpauth',
-        'webargs<4'
+        'webargs<4.0.0',
+        'shapely',
+        'requests',
+        'pyshp'
     ]
 )

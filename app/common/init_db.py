@@ -4,6 +4,7 @@ from app.resources.user import create_user
 from app.resources.listing import bulk_insert_listings
 from app.model import rollback_on_exception, db
 from app.conf import PROJECT_DIR
+from app.common.scrapers.amenities.bike_stop import fill_bike_stops
 import os
 import csv
 
@@ -22,6 +23,7 @@ def init_database():
     with flask_app_context:
         drop_and_create_database()
         create_user(username='admin', password='default')
+        fill_bike_stops()
         with open(os.path.join(PROJECT_DIR, 'app/common/listings.csv')) as csvfile:
             reader = csv.DictReader(csvfile)
             bulk_insert_listings(list(reader))
