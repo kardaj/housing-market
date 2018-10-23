@@ -18,7 +18,7 @@ Without Docker:
 3. `pip install pip setuptools --upgrade`
 4. `pip install -r requirements.txt`
 5. `python setup.py develop`
-6. `pyhton app/common/init_db.py`
+6. `python app/common/init_db.py`
 7. `python app/api.py`
 
 # Contribution
