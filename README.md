@@ -6,7 +6,7 @@ This is a dummy project that aims to build an API that enables users to navigate
 The API should be able to work properly in Bordeaux:
 * Contextual information can be retrieved from OpenStreetMap, Bordeaux's open data websites and any other sources you see fit.
 * Rental listings can be scraped from various websites such as leboncoin.fr or seloger.com.
-# Usage:
+# Usage
 With Docker:
 1. `docker-compose up`
 2. copy this URL into your web browser: http://admin:default@127.0.0.1:9999/listings
