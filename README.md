@@ -25,7 +25,7 @@ Without Docker:
 If you want to see your modifications, use `docker-compose up --force-recreate --build`.
 
 # ToDo
-1. Make sure `/listings:search` returns results as specified in the `swagger.ymy` file.
+1. Make sure `/listings:search` returns results as specified in the `swagger.yml` file.
 2. Add `tram_stop` and `bus_stop` to the amenities (datasets are available on the [open data website](https://data.bordeaux-metropole.fr/themes))
 3. Make sure `Listing` table is refreshed every 15 minutes (remove no longer available listings and add new ones)
-4. Store user's most recent search and send them an email notification when a new listing that matches their search critiria appears.
+4. Store user's most recent search and send them an email notification when a new listing that matches their search criteria appears.
