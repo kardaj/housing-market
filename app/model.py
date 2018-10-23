@@ -5,7 +5,7 @@ from sqlalchemy import ForeignKeyConstraint, UniqueConstraint
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
-LISTING_TYPES = ['house', 'apartment', 'land', 'parking']
+LISTING_TYPES = ['house', 'apartment', 'building', 'land', 'parking']
 AMENITY_TYPES = ['tram_stop', 'bus_stop', 'bike_stop']
 
 
@@ -39,6 +39,9 @@ class User(db.Model):
 
 
 class Listing(db.Model, GeometricType):
+    __table_args__ = (
+        UniqueConstraint('name', 'listing_type', name='listing_uix_1'),
+    )
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
     url = db.Column(db.String, unique=True, nullable=False)
