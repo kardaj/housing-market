@@ -2,13 +2,8 @@ swagger: "2.0"
 info:
     description: "Fraud API"
     version: "0.1.0"
-    title: "Fraud API"
+    title: "Housing Market API"
     termsOfService: "http://swagger.io/terms/"
-    contact:
-        email: "paul@qucit.com"
-    license:
-        name: "Apache 2.0"
-        url: "http://www.apache.org/licenses/LICENSE-2.0.html"
 host: "api.qucit.com"
 securityDefinitions:
     basicAuth:
