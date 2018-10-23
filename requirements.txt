@@ -10,3 +10,4 @@ shapely
 requests
 pyshp
 pyproj
+lxml
